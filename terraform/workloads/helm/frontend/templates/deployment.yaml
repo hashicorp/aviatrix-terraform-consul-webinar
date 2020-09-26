@@ -12,7 +12,7 @@ metadata:
   labels:
     app: web
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: web
@@ -22,6 +22,8 @@ spec:
         app: web
       annotations:
         "consul.hashicorp.com/connect-service-upstreams": "api:9091:azure-us-west"
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "9901"
     spec:
       serviceAccountName: web
       containers:
@@ -50,4 +52,34 @@ spec:
           - name: TIMING_VARIANCE
             value: "10"
           - name: TRACING_ZIPKIN
-            value: "http://jaeger-collector:9411"
+            value: "http://jaeger.service.consul:9411"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-traffic
+  labels:
+    app: web-traffic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-traffic
+  template:
+    metadata:
+      labels:
+        app: web-traffic
+    spec:
+      containers:
+      - name: load-test
+        image: nicholasjackson/emojify-traffic:v0.2.1
+        env:
+        - name: BASE_URI
+          value: http://web-load:9090
+        - name: DURATION
+          value: "24h"
+        - name: SHOW_PROGRESS
+          value: "false"
+        - name: USERS
+          value: "1"

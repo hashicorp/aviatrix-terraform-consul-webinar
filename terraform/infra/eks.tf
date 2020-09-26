@@ -26,8 +26,9 @@ module "app" {
   vpc_id                               = module.vpc-app.vpc_id
   worker_additional_security_group_ids = [aws_security_group.app-eks-consul.id]
 
-  manage_aws_auth  = true
-  write_kubeconfig = true
+  manage_aws_auth    = true
+  write_kubeconfig   = true
+  config_output_path = "kube_config/kubeconfig_aws"
 
   worker_groups = [
     {

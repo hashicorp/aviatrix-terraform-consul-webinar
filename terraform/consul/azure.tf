@@ -1,3 +1,5 @@
+data "azurerm_subscription" "current" {}
+
 resource "azurerm_public_ip" "consul" {
   name                = "consul-ip"
   location            = "West US"
@@ -17,6 +19,11 @@ resource "azurerm_network_interface" "consul" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.consul.id
   }
+
+  tags = {
+    Env = "consul-${data.terraform_remote_state.infra.outputs.env}"
+  }
+
 }
 
 resource "azurerm_virtual_machine" "consul" {
@@ -62,7 +69,10 @@ resource "azurerm_virtual_machine" "consul" {
 
 data "template_file" "azure-init" {
   template = "${file("${path.module}/scripts/azure_consul.sh")}"
-}
+    vars = {
+      consul_wan_ip = aws_instance.consul.private_ip
+    }
+  }
 
 resource "azurerm_network_security_group" "consul" {
   name                = "consul-nsg"
@@ -103,11 +113,36 @@ resource "azurerm_network_interface_security_group_association" "consul" {
 
 
 resource "helm_release" "azure-consul" {
-  name       = "azure-consul"
+  provider = helm.azure
+
+  name       = "hashicorp"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "consul"
 
-  values = [
-    "${file("helm/consul-aks.yaml")}"
+  values = [<<EOF
+  global:
+    image: consul:1.8.0
+    domain: consul
+    datacenter: azure-us-west
+    tls:
+      enabled: false
+    acls:
+      manageSystemACLs: false
+  server:
+    enabled: false
+  client:
+    enabled: true
+    join: ["provider=azure tag_name=Env tag_value=consul-${data.terraform_remote_state.infra.outputs.env} subscription_id=${data.azurerm_subscription.current.subscription_id}"]
+  connectInject:
+    enabled: true
+    default: true
+    centralConfig:
+      enabled: true
+    k8sAllowNamespaces: ["default"]
+  syncCatalog:
+    enabled: true
+    toConsul: true
+    toK8S: false
+EOF
   ]
 }

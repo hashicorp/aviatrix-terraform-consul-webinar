@@ -23,6 +23,8 @@ cat <<EOF> /etc/consul.d/consul.json
   "data_dir": "/opt/consul/data",
   "client_addr": "0.0.0.0",
   "log_level": "INFO",
+  "node_name": "consul-server-0",
+  "retry_join_wan": ["${consul_wan_ip}"],
   "ui": true,
   "connect": {
     "enabled": true

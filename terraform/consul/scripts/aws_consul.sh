@@ -6,6 +6,7 @@ local_ipv4="$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
 #update packages
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt update -y
 
 #install consul
 sudo apt install consul -y
@@ -22,6 +23,8 @@ cat <<EOF> /etc/consul.d/consul.json
   "data_dir": "/opt/consul/data",
   "client_addr": "0.0.0.0",
   "log_level": "INFO",
+  "node_name": "consul-server-0",
+  "retry_join_wan": ["${consul_wan_ip}"],
   "ui": true,
   "connect": {
     "enabled": true

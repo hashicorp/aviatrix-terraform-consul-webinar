@@ -34,3 +34,8 @@ resource "azurerm_role_assignment" "aks" {
   role_definition_name = "Reader"
   principal_id         = azurerm_kubernetes_cluster.app.kubelet_identity[0].object_id
 }
+
+resource "local_file" "local-config-file" {
+  content  = azurerm_kubernetes_cluster.app.kube_config_raw
+  filename = "${path.module}/kube_config/kubeconfig_azure"
+}

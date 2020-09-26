@@ -21,6 +21,11 @@ data "terraform_remote_state" "infra" {
 #data sources
 data "aws_caller_identity" "current" {}
 
+resource "random_string" "password" {
+  length  = 10
+  special = true
+}
+
 module "aviatrix-iam-roles" {
   source = "github.com/AviatrixSystems/terraform-modules.git//aviatrix-controller-iam-roles?ref=terraform_0.12"
 }
@@ -36,7 +41,7 @@ module "aviatrix-controller-build" {
 module "aviatrix-controller-initialize" {
   source = "github.com/AviatrixSystems/terraform-modules.git//aviatrix-controller-initialize?ref=terraform_0.12"
 
-  admin_password      = "Password1"
+  admin_password      = random_string.password.result
   admin_email         = "admin@example.com"
   private_ip          = module.aviatrix-controller-build.private_ip
   public_ip           = module.aviatrix-controller-build.public_ip

@@ -1,3 +1,4 @@
+#external
 ---
 apiVersion: v1
 kind: Service
@@ -11,4 +12,20 @@ spec:
   - name: http
     protocol: TCP
     port: 80
+    targetPort: 9090
+
+#internal cluster IP for load simulator
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-load
+spec:
+  type: ClusterIP
+  selector:
+    app: web
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9090
     targetPort: 9090

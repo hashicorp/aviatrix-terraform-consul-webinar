@@ -12,7 +12,7 @@ metadata:
   labels:
     app: api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: api
@@ -23,6 +23,8 @@ spec:
       annotations:
         "consul.hashicorp.com/connect-service-protocol": "grpc"
         "consul.hashicorp.com/connect-service-upstreams": "cache:9092,currency:9093"
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "9901"
     spec:
       serviceAccountName: api
       containers:
@@ -51,7 +53,7 @@ spec:
           - name: TIMING_VARIANCE
             value: "10"
           - name: TRACING_ZIPKIN
-            value: "http://jaeger-collector:9411"
+            value: "http://jaeger.service.aws-us-east-1.consul:9411"
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -66,7 +68,7 @@ metadata:
   labels:
     app: cache
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: cache
@@ -74,6 +76,9 @@ spec:
     metadata:
       labels:
         app: cache
+      annotations:
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "9901"
     spec:
       serviceAccountName: cache
       containers:
@@ -100,7 +105,7 @@ spec:
           - name: TIMING_VARIANCE
             value: "10"
           - name: TRACING_ZIPKIN
-            value: "http://jaeger-collector:9411"
+            value: "http://jaeger.service.aws-us-east-1.consul:9411"
 
 ---
 apiVersion: v1
@@ -116,7 +121,7 @@ metadata:
   labels:
     app: currency
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: currency
@@ -124,6 +129,9 @@ spec:
     metadata:
       labels:
         app: currency
+      annotations:
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "9901"
     spec:
       serviceAccountName: currency
       containers:
@@ -150,4 +158,4 @@ spec:
           - name: ERROR_TYPE
             value: "http_error"
           - name: TRACING_ZIPKIN
-            value: "http://jaeger-collector:9411"
+            value: "http://jaeger.service.aws-us-east-1.consul:9411"

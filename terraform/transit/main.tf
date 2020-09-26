@@ -1,7 +1,7 @@
 provider "aviatrix" {
   username                = "admin"
   controller_ip           = data.terraform_remote_state.aviatrix.outputs.aviatrix_controller_public_ip
-  password                = "Password1"
+  password                = data.terraform_remote_state.aviatrix.outputs.aviatrix_controller_password
   skip_version_validation = true
 }
 
@@ -75,6 +75,8 @@ resource "aviatrix_spoke_gateway" "app_spoke_gateway_aws" {
 }
 
 resource "aviatrix_transit_gateway" "transit_gateway_azure" {
+  depends_on = [aviatrix_account.azure]
+
   cloud_type         = 8
   account_name       = "azure-demo"
   gw_name            = "transit-azure"
@@ -87,6 +89,8 @@ resource "aviatrix_transit_gateway" "transit_gateway_azure" {
 }
 
 resource "aviatrix_spoke_gateway" "shared_svcs_spoke_gateway_azure" {
+  depends_on = [aviatrix_account.azure]
+
   cloud_type         = 8
   account_name       = "azure-demo"
   gw_name            = "shared-svcs-spoke-gw-azure"
@@ -99,6 +103,8 @@ resource "aviatrix_spoke_gateway" "shared_svcs_spoke_gateway_azure" {
 }
 
 resource "aviatrix_spoke_gateway" "app_spoke_gateway_azure" {
+  depends_on = [aviatrix_account.azure]
+
   cloud_type         = 8
   account_name       = "azure-demo"
   gw_name            = "app-spoke-gw-azure"
@@ -111,6 +117,8 @@ resource "aviatrix_spoke_gateway" "app_spoke_gateway_azure" {
 }
 
 resource "aviatrix_transit_gateway_peering" "aws_azure_gateway_peering" {
+  depends_on = [aviatrix_transit_gateway.transit_gateway_azure, aviatrix_transit_gateway.transit_gateway_aws]
+
   transit_gateway_name1 = "transit-aws"
   transit_gateway_name2 = "transit-azure"
 }

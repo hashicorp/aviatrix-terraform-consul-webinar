@@ -9,14 +9,14 @@ provider "azurerm" {
 }
 
 provider "helm" {
-  alias  = "aws"
+  alias = "aws"
   kubernetes {
     config_path = "../infra/kube_config/kubeconfig_aws"
   }
 }
 
 provider "helm" {
-  alias  = "azure"
+  alias = "azure"
   kubernetes {
     config_path = "../infra/kube_config/kubeconfig_azure"
   }
