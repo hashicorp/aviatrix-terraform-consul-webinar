@@ -69,10 +69,10 @@ resource "azurerm_virtual_machine" "consul" {
 
 data "template_file" "azure-init" {
   template = "${file("${path.module}/scripts/azure_consul.sh")}"
-    vars = {
-      consul_wan_ip = aws_instance.consul.private_ip
-    }
+  vars = {
+    consul_wan_ip = aws_instance.consul.private_ip
   }
+}
 
 resource "azurerm_network_security_group" "consul" {
   name                = "consul-nsg"

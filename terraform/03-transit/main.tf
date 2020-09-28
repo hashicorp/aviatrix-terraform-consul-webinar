@@ -14,7 +14,7 @@ data "terraform_remote_state" "aviatrix" {
   backend = "local"
 
   config = {
-    path = "../aviatrix/terraform.tfstate"
+    path = "../02-aviatrix/terraform.tfstate"
   }
 }
 
@@ -22,7 +22,7 @@ data "terraform_remote_state" "infra" {
   backend = "local"
 
   config = {
-    path = "../infra/terraform.tfstate"
+    path = "../01-infra/terraform.tfstate"
   }
 }
 

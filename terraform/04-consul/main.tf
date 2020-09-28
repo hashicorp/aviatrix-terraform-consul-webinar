@@ -11,14 +11,14 @@ provider "azurerm" {
 provider "helm" {
   alias = "aws"
   kubernetes {
-    config_path = "../infra/kube_config/kubeconfig_aws"
+    config_path = "../01-infra/kube_config/kubeconfig_aws"
   }
 }
 
 provider "helm" {
   alias = "azure"
   kubernetes {
-    config_path = "../infra/kube_config/kubeconfig_azure"
+    config_path = "../01-infra/kube_config/kubeconfig_azure"
   }
 }
 
@@ -26,6 +26,6 @@ data "terraform_remote_state" "infra" {
   backend = "local"
 
   config = {
-    path = "../infra/terraform.tfstate"
+    path = "../01-infra/terraform.tfstate"
   }
 }
