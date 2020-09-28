@@ -1,6 +1,7 @@
 #Azure
 export KUBECONFIG=../../01-infra/kube_config/kubeconfig_aws
 
+kubectl set env daemonset -n kube-system aws-node AWS_VPC_K8S_CNI_EXTERNALSNAT=true
 CONSUL_DNS_IP=$(kubectl get svc hashicorp-consul-dns -o jsonpath='{.spec.clusterIP}')
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
