@@ -15,11 +15,11 @@ The below diagram is a [Aviatrix Co-Pilot](https://aviatrix.com/cloud-network-pl
 ## Instructions
 To deploy the solution run the Terraform modules in the following order.
 
-1. [Infra](terraform/infra)
-1. [Aviatrix](terraform/aviatrix)
-1. [Transit](terraform/transit)
-1. [Consul](terraform/consul)
-1. [Workloads](terraform/workloads)
+1. [Infra](terraform/01-infra)
+1. [Aviatrix](terraform/02-aviatrix)
+1. [Transit](terraform/03-transit)
+1. [Consul](terraform/04-consul)
+1. [Workloads](terraform/05-workloads)
 
 ## Run the demo
 You can send traffic to the frontend application endpoint after you have deployed the [workloads](terraform/workloads) applications.
