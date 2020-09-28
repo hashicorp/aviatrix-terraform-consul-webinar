@@ -6,7 +6,7 @@ You can use Terraform to deploy the solution end-to-end.
 See the instructions below to deploy this to your AWS & Azure environments.
 
 ## Demo Video
-You can see the webinar video for this here: https://youtu.be/Irt81hskUIg
+You can see the webinar video for this here: https://youtu.be/Irt81hskUIg?t=2081
 
 ## Topology
 The below diagram is a [Aviatrix Co-Pilot](https://aviatrix.com/cloud-network-platform/) rendering of the environment.
