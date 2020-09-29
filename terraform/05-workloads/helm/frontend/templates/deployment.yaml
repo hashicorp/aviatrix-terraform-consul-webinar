@@ -22,8 +22,6 @@ spec:
         app: web
       annotations:
         "consul.hashicorp.com/connect-service-upstreams": "api:9091:azure-us-west"
-        "prometheus.io/scrape": "true"
-        "prometheus.io/port": "9901"
     spec:
       serviceAccountName: web
       containers:
@@ -36,7 +34,7 @@ spec:
           - name: LISTEN_ADDR
             value: "0.0.0.0:9090"
           - name: UPSTREAM_URIS
-            value: "grpc://127.0.0.1:9091"
+            value: "http://127.0.0.1:9091"
           - name: MESSAGE
             value: "Hello World"
           - name: NAME

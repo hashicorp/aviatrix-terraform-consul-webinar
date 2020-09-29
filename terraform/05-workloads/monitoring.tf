@@ -34,6 +34,20 @@ resource "aws_security_group" "monitoring" {
   }
 
   ingress {
+    from_port   = 8301
+    to_port     = 8301
+    protocol    = "tcp"
+    cidr_blocks = ["10.2.0.0/16"]
+  }
+
+  ingress {
+    from_port   = 8301
+    to_port     = 8301
+    protocol    = "udp"
+    cidr_blocks = ["10.2.0.0/16"]
+  }
+
+  ingress {
     from_port   = 9411
     to_port     = 9411
     protocol    = "tcp"
