@@ -4,6 +4,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web
+  annotations:
+    "consul.hashicorp.com/service-sync": "true"
+    "consul.hashicorp.com/service-name": "web-lb"
 spec:
   type: LoadBalancer
   selector:
@@ -19,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-load
+  name: web-traffic
 spec:
   type: ClusterIP
   selector:

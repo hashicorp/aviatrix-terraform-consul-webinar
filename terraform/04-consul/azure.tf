@@ -141,6 +141,7 @@ resource "helm_release" "azure-consul" {
     k8sAllowNamespaces: ["default"]
   syncCatalog:
     enabled: true
+    default: false
     toConsul: true
     toK8S: false
 EOF

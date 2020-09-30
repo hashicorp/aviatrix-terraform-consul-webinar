@@ -70,11 +70,11 @@ spec:
         app: web-traffic
     spec:
       containers:
-      - name: load-test
+      - name: web-traffic
         image: nicholasjackson/emojify-traffic:v0.2.1
         env:
         - name: BASE_URI
-          value: http://web-load:9090
+          value: http://web-traffic:9090
         - name: DURATION
           value: "24h"
         - name: SHOW_PROGRESS
