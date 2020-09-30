@@ -21,6 +21,7 @@ spec:
       labels:
         app: web
       annotations:
+        "consul.hashicorp.com/service-tags": "app"
         "consul.hashicorp.com/connect-service-upstreams": "api:9091:azure-us-west"
     spec:
       serviceAccountName: web
@@ -68,6 +69,8 @@ spec:
     metadata:
       labels:
         app: web-traffic
+      annotations:
+        "consul.hashicorp.com/service-tags": "app"
     spec:
       containers:
       - name: web-traffic
