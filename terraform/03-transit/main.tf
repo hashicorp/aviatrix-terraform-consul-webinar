@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 provider "aviatrix" {
   username                = "admin"
   controller_ip           = data.terraform_remote_state.aviatrix.outputs.aviatrix_controller_public_ip

@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 resource "azurerm_kubernetes_cluster" "app" {
   name                = "app-aks"
   resource_group_name = azurerm_resource_group.aviatrix.name

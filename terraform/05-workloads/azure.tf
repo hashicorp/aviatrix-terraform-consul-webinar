@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 resource "helm_release" "azure-consul" {
   depends_on = [consul_config_entry.proxy_defaults, null_resource.kube_dns]
 

@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 #Azure
 export KUBECONFIG=../../01-infra/kube_config/kubeconfig_aws
 

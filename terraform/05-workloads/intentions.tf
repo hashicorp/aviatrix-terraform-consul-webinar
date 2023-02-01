@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 provider "consul" {
   address    = "${data.terraform_remote_state.consul.outputs.aws_consul_public_ip}:8500"
   datacenter = "aws-us-east-1"

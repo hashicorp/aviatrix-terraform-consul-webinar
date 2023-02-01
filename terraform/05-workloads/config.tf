@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 resource "consul_config_entry" "proxy_defaults" {
   kind = "proxy-defaults"
   name = "global"
