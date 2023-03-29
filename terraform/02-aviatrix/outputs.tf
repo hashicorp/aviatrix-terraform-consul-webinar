@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 output "aviatrix_controller_public_ip" {
   value = module.aviatrix-controller-build.public_ip
 }

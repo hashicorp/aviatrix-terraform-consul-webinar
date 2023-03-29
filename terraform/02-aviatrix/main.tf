@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 provider "aviatrix" {
   username                = "admin"
   controller_ip           = module.aviatrix-controller-build.public_ip

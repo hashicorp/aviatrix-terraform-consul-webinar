@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 data "aws_eks_cluster" "app" {
   name = module.app.cluster_id
 }

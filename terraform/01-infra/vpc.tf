@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 resource "aws_key_pair" "demo" {
   key_name   = "aviatrix-demo-${random_string.env.result}"
   public_key = tls_private_key.main.public_key_openssh
