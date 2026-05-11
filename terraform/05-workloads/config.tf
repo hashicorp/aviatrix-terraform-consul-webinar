@@ -1,4 +1,4 @@
-# Copyright IBM Corp. 2020, 2023
+# Copyright IBM Corp. 2020, 2026
 # SPDX-License-Identifier: MPL-2.0
 
 resource "consul_config_entry" "proxy_defaults" {
